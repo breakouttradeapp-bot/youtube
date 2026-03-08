@@ -1,34 +1,38 @@
 [
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_splash.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/activity_splash.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/item_history.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/item_history.xml"
     },
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_shorts_result.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/activity_shorts_result.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_privacy_policy.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/activity_privacy_policy.xml"
     },
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_seo_result.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/activity_seo_result.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/item_shorts_title.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/item_shorts_title.xml"
     },
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/item_shorts_title.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/item_shorts_title.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_splash.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/activity_splash.xml"
     },
     {
         "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_main.xml",
         "source": "com.aitube.seogenerator.app-main-54:/layout/activity_main.xml"
     },
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_history.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/activity_history.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_seo_result.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/activity_seo_result.xml"
     },
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/item_history.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/item_history.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_main.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/activity_main.xml"
     },
     {
-        "merged": "com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_privacy_policy.xml",
-        "source": "com.aitube.seogenerator.app-main-54:/layout/activity_privacy_policy.xml"
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_shorts_result.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/activity_shorts_result.xml"
+    },
+    {
+        "merged": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-mergeDebugResources-51:/layout/activity_history.xml",
+        "source": "/root/.gradle/daemon/8.7/com.aitube.seogenerator.app-main-54:/layout/activity_history.xml"
     }
 ]
