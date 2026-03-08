@@ -12,7 +12,6 @@ data class CerebrasRequest(
     val messages: List<ChatMessage>,
     val temperature: Double = 0.7,
     @SerializedName("max_tokens") val maxTokens: Int = 1024,
-    val seed: Int = 0,
     @SerializedName("top_p") val topP: Double = 1.0
 )
 
