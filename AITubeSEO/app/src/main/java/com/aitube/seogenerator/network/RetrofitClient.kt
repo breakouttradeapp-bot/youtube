@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "https://api.cerebras.ai/"
+    private const val BASE_URL = "https://api.cerebras.ai/v1/"
 
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()

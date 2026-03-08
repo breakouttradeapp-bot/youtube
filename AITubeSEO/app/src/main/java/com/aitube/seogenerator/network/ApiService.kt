@@ -8,7 +8,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
-    @POST("v1/chat/completions")
+    @POST("chat/completions")
     suspend fun generateContent(
         @Header("Authorization") authorization: String,
         @Body request: CerebrasRequest
