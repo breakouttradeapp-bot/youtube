@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AI Tube SEO Generator</string>
+    <string name="tagline">Smart AI Tools for YouTubers</string>
+    <string name="enter_topic">Enter your YouTube video topic</string>
+    <string name="generate_seo">Generate SEO Content</string>
+    <string name="generate_shorts">Generate Viral Shorts Titles</string>
+</resources>
