@@ -34,7 +34,6 @@ class AiRepository {
                 Result.failure(Exception(httpError(response.code())))
             }
         } catch (e: CancellationException) {
-            // Always re-throw coroutine cancellation
             throw e
         } catch (e: Exception) {
             Result.failure(Exception(friendlyError(e)))
@@ -74,10 +73,10 @@ class AiRepository {
     private fun buildSeoPrompt(topic: String) = """
         Generate YouTube SEO content for this topic:
         Topic: $topic
-        
+
         Return ONLY this JSON (no markdown, no extra text):
         {"title":"...","description":"...","tags":"tag1, tag2, tag3","hashtags":"#h1, #h2, #h3"}
-        
+
         Rules:
         - title: max 70 chars, keyword-rich
         - description: 300-500 words, natural keywords, call to action
@@ -87,9 +86,9 @@ class AiRepository {
 
     private fun buildShortsPrompt(topic: String) = """
         Generate 10 viral YouTube Shorts titles for: $topic
-        
+
         Rules: max 60 chars each, emotional hooks, curiosity gaps, emojis, high CTR.
-        
+
         Return ONLY this JSON (no markdown):
         {"titles":["title1","title2","title3","title4","title5","title6","title7","title8","title9","title10"]}
     """.trimIndent()
@@ -106,7 +105,6 @@ class AiRepository {
                 hashtags = obj.get("hashtags")?.asString.orEmpty()
             )
         } catch (e: JsonParseException) {
-            // Graceful fallback: return whatever the AI said as description
             SeoContent(
                 title = "SEO content for: $topic",
                 description = raw.take(2000),
@@ -150,6 +148,7 @@ class AiRepository {
     private fun httpError(code: Int) = when (code) {
         401 -> "Invalid API key. Please contact support."
         403 -> "Access denied. Please check your API key."
+        404 -> "AI model not found (404). Please update the app."
         429 -> "Rate limit exceeded. Please wait a moment and try again."
         500, 502, 503 -> "AI server is temporarily unavailable. Please try again."
         524 -> "Request timed out. The AI is busy — please retry."

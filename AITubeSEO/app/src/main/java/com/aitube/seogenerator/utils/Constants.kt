@@ -2,7 +2,7 @@ package com.aitube.seogenerator.utils
 
 object Constants {
     const val CEREBRAS_API_KEY = "csk-kvpefvxk65wdy5x4ek2ekw3enehd62x4eyfccpjx86n2e8d6"
-    const val CEREBRAS_MODEL = "llama-3.3-70b"
+    const val CEREBRAS_MODEL = "llama3.3-70b"
     const val MAX_TOKENS = 1024
 
     const val ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"

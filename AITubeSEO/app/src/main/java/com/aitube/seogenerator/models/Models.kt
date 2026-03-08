@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 // ── Cerebras API Request ──────────────────────────────────
 
 data class CerebrasRequest(
-    val model: String = "llama-3.3-70b",
+    val model: String = "llama3.3-70b",
     val stream: Boolean = false,
     val messages: List<ChatMessage>,
     val temperature: Double = 0.7,
