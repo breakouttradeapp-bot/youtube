@@ -11,77 +11,106 @@ class AiRepository {
 
     private val api = RetrofitClient.apiService
 
+    // Custom exception to carry HTTP code through the fallback logic
+    private class ApiException(val code: Int, msg: String) : Exception(msg)
+
+    // ── Public API ────────────────────────────────────────────────────────────
+
     suspend fun generateSeoContent(topic: String): Result<SeoContent> {
-        return try {
+        return callWithFallback { model ->
             val request = CerebrasRequest(
-                model = Constants.CEREBRAS_MODEL,
+                model = model,
                 maxTokens = Constants.MAX_TOKENS,
+                temperature = 0.7,
                 messages = listOf(
-                    ChatMessage("system",
-                        "You are a YouTube SEO expert. Respond ONLY with valid compact JSON. No markdown, no explanation."),
-                    ChatMessage("user", buildSeoPrompt(topic))
+                    ChatMessage(
+                        role = "system",
+                        content = "You are a YouTube SEO expert. Respond ONLY with valid compact JSON. No markdown, no explanation."
+                    ),
+                    ChatMessage(role = "user", content = buildSeoPrompt(topic))
                 )
             )
-
             val response = api.generateContent("Bearer ${Constants.CEREBRAS_API_KEY}", request)
-
             if (response.isSuccessful) {
-                val raw = response.body()?.choices
-                    ?.firstOrNull()?.message?.content
-                    ?: return Result.failure(Exception("AI returned an empty response. Please try again."))
+                val raw = response.body()?.choices?.firstOrNull()?.message?.content
+                    ?: throw Exception("AI returned an empty response. Please try again.")
                 Result.success(parseSeo(raw, topic))
             } else {
-                Result.failure(Exception(httpError(response.code())))
+                // Throw ApiException so callWithFallback can detect 404 and retry
+                throw ApiException(response.code(), httpError(response.code()))
             }
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Result.failure(Exception(friendlyError(e)))
         }
     }
 
     suspend fun generateShortsTitles(topic: String): Result<ShortsTitles> {
-        return try {
+        return callWithFallback { model ->
             val request = CerebrasRequest(
-                model = Constants.CEREBRAS_MODEL,
+                model = model,
                 maxTokens = Constants.MAX_TOKENS,
+                temperature = 0.7,
                 messages = listOf(
-                    ChatMessage("system",
-                        "You are a viral YouTube Shorts expert. Respond ONLY with valid compact JSON."),
-                    ChatMessage("user", buildShortsPrompt(topic))
+                    ChatMessage(
+                        role = "system",
+                        content = "You are a viral YouTube Shorts expert. Respond ONLY with valid compact JSON."
+                    ),
+                    ChatMessage(role = "user", content = buildShortsPrompt(topic))
                 )
             )
-
             val response = api.generateContent("Bearer ${Constants.CEREBRAS_API_KEY}", request)
-
             if (response.isSuccessful) {
-                val raw = response.body()?.choices
-                    ?.firstOrNull()?.message?.content
-                    ?: return Result.failure(Exception("AI returned an empty response. Please try again."))
+                val raw = response.body()?.choices?.firstOrNull()?.message?.content
+                    ?: throw Exception("AI returned an empty response. Please try again.")
                 Result.success(parseShorts(raw))
             } else {
-                Result.failure(Exception(httpError(response.code())))
+                throw ApiException(response.code(), httpError(response.code()))
             }
+        }
+    }
+
+    // ── Fallback logic ────────────────────────────────────────────────────────
+    // Tries llama-3.3-70b first. If 404, automatically retries with llama3.1-8b.
+
+    private suspend fun <T> callWithFallback(
+        block: suspend (model: String) -> Result<T>
+    ): Result<T> {
+        return try {
+            block(Constants.CEREBRAS_MODEL)
         } catch (e: CancellationException) {
             throw e
+        } catch (e: ApiException) {
+            if (e.code == 404) {
+                // Primary model not found — silently try fallback
+                try {
+                    block(Constants.CEREBRAS_MODEL_FALLBACK)
+                } catch (e2: CancellationException) {
+                    throw e2
+                } catch (e2: ApiException) {
+                    Result.failure(Exception(e2.message))
+                } catch (e2: Exception) {
+                    Result.failure(Exception(friendlyError(e2)))
+                }
+            } else {
+                Result.failure(Exception(e.message))
+            }
         } catch (e: Exception) {
             Result.failure(Exception(friendlyError(e)))
         }
     }
 
-    // ── Prompt builders ──────────────────────────────────────
+    // ── Prompts ───────────────────────────────────────────────────────────────
+
     private fun buildSeoPrompt(topic: String) = """
-        Generate YouTube SEO content for this topic:
+        Generate YouTube SEO content for this video topic.
         Topic: $topic
 
         Return ONLY this JSON (no markdown, no extra text):
         {"title":"...","description":"...","tags":"tag1, tag2, tag3","hashtags":"#h1, #h2, #h3"}
 
         Rules:
-        - title: max 70 chars, keyword-rich
-        - description: 300-500 words, natural keywords, call to action
-        - tags: exactly 20 tags, comma separated, no # symbol
-        - hashtags: exactly 15 hashtags, with # symbol, comma separated
+        - title: max 70 chars, compelling, keyword-rich
+        - description: 300-500 words, natural keywords, include call to action
+        - tags: exactly 20 tags, comma separated, NO # symbol
+        - hashtags: exactly 15 hashtags, WITH # symbol, comma separated
     """.trimIndent()
 
     private fun buildShortsPrompt(topic: String) = """
@@ -93,81 +122,60 @@ class AiRepository {
         {"titles":["title1","title2","title3","title4","title5","title6","title7","title8","title9","title10"]}
     """.trimIndent()
 
-    // ── Parsers ──────────────────────────────────────────────
+    // ── Parsers ───────────────────────────────────────────────────────────────
+
     private fun parseSeo(raw: String, topic: String): SeoContent {
-        val cleaned = cleanJson(raw)
         return try {
-            val obj = JsonParser.parseString(cleaned).asJsonObject
+            val obj = JsonParser.parseString(cleanJson(raw)).asJsonObject
             SeoContent(
-                title = obj.get("title")?.asString?.take(200).orEmpty(),
+                title       = obj.get("title")?.asString?.take(200).orEmpty(),
                 description = obj.get("description")?.asString.orEmpty(),
-                tags = obj.get("tags")?.asString.orEmpty(),
-                hashtags = obj.get("hashtags")?.asString.orEmpty()
-            )
-        } catch (e: JsonParseException) {
-            SeoContent(
-                title = "SEO content for: $topic",
-                description = raw.take(2000),
-                tags = "",
-                hashtags = ""
+                tags        = obj.get("tags")?.asString.orEmpty(),
+                hashtags    = obj.get("hashtags")?.asString.orEmpty()
             )
         } catch (e: Exception) {
-            SeoContent(title = "SEO content for: $topic", description = raw.take(500))
+            SeoContent(title = "SEO for: $topic", description = raw.take(2000))
         }
     }
 
     private fun parseShorts(raw: String): ShortsTitles {
-        val cleaned = cleanJson(raw)
         return try {
-            val arr = JsonParser.parseString(cleaned)
-                .asJsonObject
-                .getAsJsonArray("titles")
-            val titles = mutableListOf<String>()
-            arr?.forEach { el ->
-                val s = el?.asString?.trim()
-                if (!s.isNullOrEmpty()) titles.add(s)
-            }
-            if (titles.isEmpty()) {
-                ShortsTitles(titles = listOf("Could not parse titles. Please try again."))
-            } else {
-                ShortsTitles(titles = titles)
-            }
+            val arr = JsonParser.parseString(cleanJson(raw))
+                .asJsonObject.getAsJsonArray("titles")
+            val titles = arr?.mapNotNull { it?.asString?.trim() }
+                ?.filter { it.isNotEmpty() } ?: emptyList()
+            if (titles.isEmpty()) ShortsTitles(listOf("Could not parse titles. Try again."))
+            else ShortsTitles(titles)
         } catch (e: Exception) {
-            ShortsTitles(titles = listOf("Generation error. Please try again."))
+            ShortsTitles(listOf("Parse error. Please try again."))
         }
     }
 
-    private fun cleanJson(raw: String): String =
-        raw.trim()
-            .removePrefix("```json")
-            .removePrefix("```")
-            .removeSuffix("```")
-            .trim()
+    private fun cleanJson(raw: String) = raw.trim()
+        .removePrefix("```json").removePrefix("```").removeSuffix("```").trim()
 
-    // ── Error messages ────────────────────────────────────────
+    // ── Error helpers ─────────────────────────────────────────────────────────
+
     private fun httpError(code: Int) = when (code) {
         401 -> "Invalid API key. Please contact support."
-        403 -> "Access denied. Please check your API key."
-        404 -> "AI model not found (404). Please update the app."
-        429 -> "Rate limit exceeded. Please wait a moment and try again."
-        500, 502, 503 -> "AI server is temporarily unavailable. Please try again."
-        524 -> "Request timed out. The AI is busy — please retry."
+        403 -> "API access denied. Check your API key."
+        404 -> "AI model not found (404). Retrying with fallback model..."
+        422 -> "Invalid request. Please try again."
+        429 -> "Rate limit exceeded. Please wait a moment."
+        500, 502, 503 -> "AI server unavailable. Please try again."
+        524 -> "Request timed out. Please retry."
         else -> "Request failed (Error $code). Please try again."
     }
 
     private fun friendlyError(e: Exception): String {
-        val msg = e.message?.lowercase() ?: ""
+        val msg = e.message?.lowercase().orEmpty()
         return when {
             "unable to resolve host" in msg || "failed to connect" in msg ||
-            "network" in msg || "nodename nor servname" in msg ->
-                "No internet connection. Please check your network and try again."
-            "timeout" in msg || "timed out" in msg ->
-                "Request timed out. Please check your connection and retry."
-            "ssl" in msg || "certificate" in msg ->
-                "Secure connection failed. Please try again."
-            "json" in msg || "parse" in msg ->
-                "Received unexpected response from AI. Please try again."
-            else -> e.message ?: "An unexpected error occurred. Please try again."
+            "network" in msg -> "No internet connection. Please check your network."
+            "timeout" in msg || "timed out" in msg -> "Request timed out. Please retry."
+            "ssl" in msg || "certificate" in msg -> "Secure connection failed. Please try again."
+            else -> e.message ?: "Unexpected error. Please try again."
         }
     }
 }
+
