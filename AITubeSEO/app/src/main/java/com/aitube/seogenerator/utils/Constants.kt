@@ -5,9 +5,9 @@ object Constants {
     // ── Cerebras AI API ───────────────────────────────────────────────────────
     const val CEREBRAS_API_KEY = "csk-kvpefvxk65wdy5x4ek2ekw3enehd62x4eyfccpjx86n2e8d6"
 
-    // Confirmed working model IDs from Cerebras official docs
-    const val CEREBRAS_MODEL          = "llama-3.3-70b"   // primary  (with dash)
-    const val CEREBRAS_MODEL_FALLBACK = "llama3.1-8b"      // fallback (no dash after llama)
+    // Correct Cerebras model IDs
+    const val CEREBRAS_MODEL          = "llama3.3-70b"   // primary
+    const val CEREBRAS_MODEL_FALLBACK = "llama3.1-8b"    // fallback
 
     const val MAX_TOKENS = 1024
 
@@ -36,4 +36,3 @@ object Constants {
     const val TYPE_SEO            = "SEO"
     const val TYPE_SHORTS         = "SHORTS"
 }
-

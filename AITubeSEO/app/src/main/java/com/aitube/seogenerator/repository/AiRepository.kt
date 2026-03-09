@@ -3,7 +3,6 @@ package com.aitube.seogenerator.repository
 import com.aitube.seogenerator.models.*
 import com.aitube.seogenerator.network.RetrofitClient
 import com.aitube.seogenerator.utils.Constants
-import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
 
@@ -30,13 +29,14 @@ class AiRepository {
                     ChatMessage(role = "user", content = buildSeoPrompt(topic))
                 )
             )
-            val response = api.generateContent("Bearer ${Constants.CEREBRAS_API_KEY}", request)
+
+            val response = api.generateContent(request)
+
             if (response.isSuccessful) {
                 val raw = response.body()?.choices?.firstOrNull()?.message?.content
                     ?: throw Exception("AI returned an empty response. Please try again.")
                 Result.success(parseSeo(raw, topic))
             } else {
-                // Throw ApiException so callWithFallback can detect 404 and retry
                 throw ApiException(response.code(), httpError(response.code()))
             }
         }
@@ -56,7 +56,9 @@ class AiRepository {
                     ChatMessage(role = "user", content = buildShortsPrompt(topic))
                 )
             )
-            val response = api.generateContent("Bearer ${Constants.CEREBRAS_API_KEY}", request)
+
+            val response = api.generateContent(request)
+
             if (response.isSuccessful) {
                 val raw = response.body()?.choices?.firstOrNull()?.message?.content
                     ?: throw Exception("AI returned an empty response. Please try again.")
@@ -68,7 +70,6 @@ class AiRepository {
     }
 
     // ── Fallback logic ────────────────────────────────────────────────────────
-    // Tries llama-3.3-70b first. If 404, automatically retries with llama3.1-8b.
 
     private suspend fun <T> callWithFallback(
         block: suspend (model: String) -> Result<T>
@@ -79,7 +80,6 @@ class AiRepository {
             throw e
         } catch (e: ApiException) {
             if (e.code == 404) {
-                // Primary model not found — silently try fallback
                 try {
                     block(Constants.CEREBRAS_MODEL_FALLBACK)
                 } catch (e2: CancellationException) {
@@ -128,10 +128,10 @@ class AiRepository {
         return try {
             val obj = JsonParser.parseString(cleanJson(raw)).asJsonObject
             SeoContent(
-                title       = obj.get("title")?.asString?.take(200).orEmpty(),
+                title = obj.get("title")?.asString?.take(200).orEmpty(),
                 description = obj.get("description")?.asString.orEmpty(),
-                tags        = obj.get("tags")?.asString.orEmpty(),
-                hashtags    = obj.get("hashtags")?.asString.orEmpty()
+                tags = obj.get("tags")?.asString.orEmpty(),
+                hashtags = obj.get("hashtags")?.asString.orEmpty()
             )
         } catch (e: Exception) {
             SeoContent(title = "SEO for: $topic", description = raw.take(2000))
@@ -144,15 +144,17 @@ class AiRepository {
                 .asJsonObject.getAsJsonArray("titles")
             val titles = arr?.mapNotNull { it?.asString?.trim() }
                 ?.filter { it.isNotEmpty() } ?: emptyList()
+
             if (titles.isEmpty()) ShortsTitles(listOf("Could not parse titles. Try again."))
             else ShortsTitles(titles)
+
         } catch (e: Exception) {
             ShortsTitles(listOf("Parse error. Please try again."))
         }
     }
 
-    private fun cleanJson(raw: String) = raw.trim()
-        .removePrefix("```json").removePrefix("```").removeSuffix("```").trim()
+    private fun cleanJson(raw: String) =
+        raw.trim().removePrefix("```json").removePrefix("```").removeSuffix("```").trim()
 
     // ── Error helpers ─────────────────────────────────────────────────────────
 
@@ -178,4 +180,3 @@ class AiRepository {
         }
     }
 }
-

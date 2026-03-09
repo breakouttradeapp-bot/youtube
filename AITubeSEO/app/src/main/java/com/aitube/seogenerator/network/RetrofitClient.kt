@@ -21,10 +21,14 @@ object RetrofitClient {
 
             // 🔹 Add required headers for Cerebras API
             .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer ${Constants.CEREBRAS_API_KEY}")
-                    .addHeader("Content-Type", "application/json")
+                val original = chain.request()
+
+                val request = original.newBuilder()
+                    .header("Authorization", "Bearer ${Constants.CEREBRAS_API_KEY}")
+                    .header("Content-Type", "application/json")
+                    .method(original.method, original.body)
                     .build()
+
                 chain.proceed(request)
             }
 
