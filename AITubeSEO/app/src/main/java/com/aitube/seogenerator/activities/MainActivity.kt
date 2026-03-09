@@ -74,9 +74,7 @@ class MainActivity : AppCompatActivity() {
                 loadRewardedAd()
             }
             binding.bannerAdView.loadAd(AdRequest.Builder().build())
-        } catch (e: Exception) {
-            // Ads should never crash the app
-        }
+        } catch (e: Exception) {}
     }
 
     private fun loadInterstitialAd() {
@@ -94,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             )
-        } catch (e: Exception) { /* swallow ad errors */ }
+        } catch (e: Exception) {}
     }
 
     private fun loadRewardedAd() {
@@ -112,37 +110,50 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             )
-        } catch (e: Exception) { /* swallow ad errors */ }
+        } catch (e: Exception) {}
     }
 
     private fun setupClickListeners() {
+
         binding.btnGenerateSeo.setOnClickListener {
+
             val topic = binding.etTopic.text?.toString()?.trim() ?: ""
+
             if (topic.isEmpty()) {
                 binding.tilTopic.error = "Please enter a video topic"
                 return@setOnClickListener
             }
+
             binding.tilTopic.error = null
+
             if (!checkLimit()) return@setOnClickListener
+
             if (!NetworkUtils.isAvailable(this)) {
                 showError("No internet connection. Please check your network.")
                 return@setOnClickListener
             }
+
             viewModel.generateSeo(topic)
         }
 
         binding.btnGenerateShorts.setOnClickListener {
+
             val topic = binding.etTopic.text?.toString()?.trim() ?: ""
+
             if (topic.isEmpty()) {
                 binding.tilTopic.error = "Please enter a video topic"
                 return@setOnClickListener
             }
+
             binding.tilTopic.error = null
+
             if (!checkLimit()) return@setOnClickListener
+
             if (!NetworkUtils.isAvailable(this)) {
                 showError("No internet connection. Please check your network.")
                 return@setOnClickListener
             }
+
             viewModel.generateShorts(topic)
         }
 
@@ -150,7 +161,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkLimit(): Boolean {
-        if (prefs.isUnlocked()) return true
         if (prefs.getGenerationCount() >= Constants.FREE_GENERATION_LIMIT) {
             showLimitDialog()
             return false
@@ -162,38 +172,52 @@ class MainActivity : AppCompatActivity() {
         if (isFinishing || isDestroyed) return
         try {
             MaterialAlertDialogBuilder(this)
-                .setTitle("⚡ Daily Limit Reached")
+                .setTitle("⚡ Limit Reached")
                 .setMessage(
-                    "You've used all ${Constants.FREE_GENERATION_LIMIT} free generations.\n\n" +
-                    "Watch a short ad to unlock unlimited generations for 30 minutes!"
+                    "Watch a short ad to unlock ${Constants.FREE_GENERATION_LIMIT} AI generations."
                 )
                 .setPositiveButton("Watch Ad 🎬") { _, _ -> showRewardedAd() }
                 .setNegativeButton("Cancel", null)
                 .show()
-        } catch (e: Exception) { /* window detached */ }
+        } catch (e: Exception) {}
     }
 
     private fun showRewardedAd() {
+
         try {
+
             val ad = rewardedAd
+
             if (ad != null && !isFinishing && !isDestroyed) {
-                ad.show(this) { _ ->
+
+                ad.show(this) {
+
                     if (!isFinishing && !isDestroyed) {
-                        val unlockUntil = System.currentTimeMillis() +
-                                (Constants.REWARDED_UNLOCK_MINUTES * 60 * 1000)
-                        prefs.setUnlockUntil(unlockUntil)
+
+                        // Unlock exactly 3 attempts
                         prefs.resetCount()
+
                         updateLimitUI()
-                        Toast.makeText(this, "🎉 Unlocked for 30 minutes!", Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(
+                            this,
+                            "🎉 ${Constants.FREE_GENERATION_LIMIT} generations unlocked!",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
+
                 rewardedAd = null
                 loadRewardedAd()
+
             } else {
+
                 Toast.makeText(this, "Ad not ready yet. Please try again.", Toast.LENGTH_SHORT).show()
                 loadRewardedAd()
             }
+
         } catch (e: Exception) {
+
             Toast.makeText(this, "Ad not available right now.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -208,33 +232,42 @@ class MainActivity : AppCompatActivity() {
                 interstitialAd = null
                 loadInterstitialAd()
             }
-        } catch (e: Exception) { /* ad window error */ }
+        } catch (e: Exception) {}
     }
 
     private fun updateLimitUI() {
+
         if (isFinishing || isDestroyed) return
+
         try {
+
             val count = prefs.getGenerationCount()
             val remaining = maxOf(0, Constants.FREE_GENERATION_LIMIT - count)
-            if (prefs.isUnlocked()) {
-                binding.tvLimitInfo.text = "✅ Unlimited access active"
-                binding.btnWatchAd.hide()
-            } else {
-                binding.tvLimitInfo.text = "⚡ $remaining free generation${if (remaining != 1) "s" else ""} remaining"
-                binding.btnWatchAd.show()
-            }
-        } catch (e: Exception) { /* view not ready */ }
+
+            binding.tvLimitInfo.text =
+                "⚡ $remaining generation${if (remaining != 1) "s" else ""} remaining"
+
+        } catch (e: Exception) {}
     }
 
     private fun observeViewModel() {
+
         viewModel.seoState.observe(this) { state ->
+
             when (state) {
+
                 is UiState.Loading -> setLoadingState(true)
+
                 is UiState.Success -> {
+
                     setLoadingState(false)
+
                     val topic = binding.etTopic.text?.toString()?.trim() ?: ""
+
                     prefs.incrementCount()
+
                     maybeShowInterstitial()
+
                     updateLimitUI()
 
                     try {
@@ -245,33 +278,46 @@ class MainActivity : AppCompatActivity() {
                                 resultJson = gson.toJson(state.data)
                             )
                         )
-                    } catch (e: Exception) { /* history save failure is non-fatal */ }
+                    } catch (e: Exception) {}
 
                     if (!isFinishing && !isDestroyed) {
+
                         val intent = Intent(this, SeoResultActivity::class.java).apply {
                             putExtra(Constants.EXTRA_SEO_CONTENT, state.data)
                             putExtra(Constants.EXTRA_TOPIC, topic)
                         }
+
                         startActivity(intent)
                     }
+
                     viewModel.resetSeo()
                 }
+
                 is UiState.Error -> {
                     setLoadingState(false)
                     showError(state.message)
                 }
+
                 is UiState.Idle -> setLoadingState(false)
             }
         }
 
         viewModel.shortsState.observe(this) { state ->
+
             when (state) {
+
                 is UiState.Loading -> setLoadingState(true)
+
                 is UiState.Success -> {
+
                     setLoadingState(false)
+
                     val topic = binding.etTopic.text?.toString()?.trim() ?: ""
+
                     prefs.incrementCount()
+
                     maybeShowInterstitial()
+
                     updateLimitUI()
 
                     try {
@@ -282,21 +328,26 @@ class MainActivity : AppCompatActivity() {
                                 resultJson = gson.toJson(state.data)
                             )
                         )
-                    } catch (e: Exception) { /* non-fatal */ }
+                    } catch (e: Exception) {}
 
                     if (!isFinishing && !isDestroyed) {
+
                         val intent = Intent(this, ShortsResultActivity::class.java).apply {
                             putExtra(Constants.EXTRA_SHORTS_TITLES, state.data)
                             putExtra(Constants.EXTRA_TOPIC, topic)
                         }
+
                         startActivity(intent)
                     }
+
                     viewModel.resetShorts()
                 }
+
                 is UiState.Error -> {
                     setLoadingState(false)
                     showError(state.message)
                 }
+
                 is UiState.Idle -> setLoadingState(false)
             }
         }
@@ -304,7 +355,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setLoadingState(loading: Boolean) {
         if (isFinishing || isDestroyed) return
-        binding.loadingLayout.visibility = if (loading) android.view.View.VISIBLE else android.view.View.GONE
+        binding.loadingLayout.visibility =
+            if (loading) android.view.View.VISIBLE else android.view.View.GONE
         binding.btnGenerateSeo.isEnabled = !loading
         binding.btnGenerateShorts.isEnabled = !loading
     }
@@ -327,7 +379,7 @@ class MainActivity : AppCompatActivity() {
         try {
             menu.findItem(R.id.action_dark_mode)?.title =
                 if (prefs.isDarkMode()) "☀️ Light Mode" else "🌙 Dark Mode"
-        } catch (e: Exception) { /* non-fatal */ }
+        } catch (e: Exception) {}
         return true
     }
 

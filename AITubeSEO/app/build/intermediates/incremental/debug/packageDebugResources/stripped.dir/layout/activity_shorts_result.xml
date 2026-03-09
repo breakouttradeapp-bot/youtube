@@ -62,7 +62,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingHorizontal="16dp"
-            android:paddingBottom="70dp"
+            android:paddingBottom="120dp"
             android:clipToPadding="false" />
 
     </LinearLayout>
@@ -72,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="16dp"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 

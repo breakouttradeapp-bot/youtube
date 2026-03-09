@@ -17,9 +17,9 @@ object Constants {
     const val ADMOB_REWARDED_ID     = "ca-app-pub-3940256099942544/5224354917"
 
     // ── Generation limits ─────────────────────────────────────────────────────
-    const val FREE_GENERATION_LIMIT   = 5
-    const val INTERSTITIAL_EVERY_N    = 3
-    const val REWARDED_UNLOCK_MINUTES = 30L
+    const val FREE_GENERATION_LIMIT   = 3
+    const val INTERSTITIAL_EVERY_N    = 2
+    const val REWARDED_UNLOCK_MINUTES = 0L
 
     // ── SharedPrefs keys ──────────────────────────────────────────────────────
     const val PREFS_NAME       = "aitube_prefs"

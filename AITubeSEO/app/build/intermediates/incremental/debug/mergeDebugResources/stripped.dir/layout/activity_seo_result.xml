@@ -11,18 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/toolbar_gradient"
-            app:titleTextColor="#FFFFFF" />
+            app:titleTextColor="#FFFFFF"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="70dp"
+        android:paddingBottom="120dp"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -32,7 +34,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Topic chip -->
             <TextView
                 android:id="@+id/tvTopic"
                 android:layout_width="wrap_content"
@@ -42,9 +43,8 @@
                 android:textColor="@color/primary_dark"
                 android:background="@drawable/card_border"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp" />
+                android:paddingVertical="6dp"/>
 
-            <!-- Title Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardTitle"
                 android:layout_width="match_parent"
@@ -56,38 +56,62 @@
                 app:strokeColor="@color/divider"
                 app:strokeWidth="1dp">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:padding="18dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
-                    <!-- Colored top strip -->
-                    <View android:layout_width="match_parent" android:layout_height="4dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
                         android:background="@drawable/btn_red_gradient"
                         android:layout_marginBottom="14dp"
-                        android:layout_marginHorizontal="-18dp" />
+                        android:layout_marginHorizontal="-18dp"/>
 
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:gravity="center_vertical"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="📌 YouTube Title"
-                            android:textSize="15sp" android:textStyle="bold" android:textColor="@color/primary_dark" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="📌 YouTube Title"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark"/>
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCopyTitle"
-                            android:layout_width="wrap_content" android:layout_height="34dp"
-                            android:text="📋 Copy" android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:text="📋 Copy"
+                            android:textSize="11sp"
                             android:textColor="@color/primary"
                             android:backgroundTint="@color/primary_ultra_light"
-                            app:strokeColor="@color/primary" app:strokeWidth="1dp"
+                            app:strokeColor="@color/primary"
+                            app:strokeWidth="1dp"
                             app:cornerRadius="10dp"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
                     </LinearLayout>
-                    <TextView android:id="@+id/tvTitle" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:textSize="15sp"
-                        android:textStyle="bold" android:lineSpacingExtra="4dp" />
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4dp"/>
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Description Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardDescription"
                 android:layout_width="match_parent"
@@ -99,31 +123,61 @@
                 app:strokeColor="@color/divider"
                 app:strokeWidth="1dp">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:padding="18dp">
-                    <View android:layout_width="match_parent" android:layout_height="4dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
                         android:background="@drawable/btn_red_gradient"
-                        android:layout_marginBottom="14dp" android:layout_marginHorizontal="-18dp" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginHorizontal="-18dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="📝 Description"
-                            android:textSize="15sp" android:textStyle="bold" android:textColor="@color/primary_dark" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="📝 Description"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark"/>
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCopyDesc"
-                            android:layout_width="wrap_content" android:layout_height="34dp"
-                            android:text="📋 Copy" android:textSize="11sp"
-                            android:textColor="@color/primary" android:backgroundTint="@color/primary_ultra_light"
-                            app:strokeColor="@color/primary" app:strokeWidth="1dp" app:cornerRadius="10dp"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:text="📋 Copy"
+                            android:textSize="11sp"
+                            android:textColor="@color/primary"
+                            android:backgroundTint="@color/primary_ultra_light"
+                            app:strokeColor="@color/primary"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="10dp"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
                     </LinearLayout>
-                    <TextView android:id="@+id/tvDescription" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:textSize="14sp" android:lineSpacingExtra="5dp" />
+
+                    <TextView
+                        android:id="@+id/tvDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="5dp"/>
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Tags Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardTags"
                 android:layout_width="match_parent"
@@ -135,32 +189,54 @@
                 app:strokeColor="@color/divider"
                 app:strokeWidth="1dp">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:padding="18dp">
-                    <View android:layout_width="match_parent" android:layout_height="4dp"
-                        android:background="@drawable/btn_red_gradient"
-                        android:layout_marginBottom="14dp" android:layout_marginHorizontal="-18dp" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:gravity="center_vertical"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="🏷️ Tags (20)"
-                            android:textSize="15sp" android:textStyle="bold" android:textColor="@color/primary_dark" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="🏷️ Tags (20)"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark"/>
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCopyTags"
-                            android:layout_width="wrap_content" android:layout_height="34dp"
-                            android:text="📋 Copy" android:textSize="11sp"
-                            android:textColor="@color/primary" android:backgroundTint="@color/primary_ultra_light"
-                            app:strokeColor="@color/primary" app:strokeWidth="1dp" app:cornerRadius="10dp"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:text="📋 Copy"
+                            android:textSize="11sp"
+                            android:textColor="@color/primary"
+                            android:backgroundTint="@color/primary_ultra_light"
+                            app:strokeColor="@color/primary"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="10dp"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
                     </LinearLayout>
-                    <TextView android:id="@+id/tvTags" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:textSize="13sp" android:lineSpacingExtra="4dp"
-                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvTags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"/>
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Hashtags Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardHashtags"
                 android:layout_width="match_parent"
@@ -172,45 +248,69 @@
                 app:strokeColor="@color/divider"
                 app:strokeWidth="1dp">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:padding="18dp">
-                    <View android:layout_width="match_parent" android:layout_height="4dp"
-                        android:background="@drawable/btn_red_gradient"
-                        android:layout_marginBottom="14dp" android:layout_marginHorizontal="-18dp" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:gravity="center_vertical"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginBottom="10dp">
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                            android:layout_weight="1" android:text="#️⃣ Hashtags (15)"
-                            android:textSize="15sp" android:textStyle="bold" android:textColor="@color/primary_dark" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="#️⃣ Hashtags (15)"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark"/>
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCopyHashtags"
-                            android:layout_width="wrap_content" android:layout_height="34dp"
-                            android:text="📋 Copy" android:textSize="11sp"
-                            android:textColor="@color/primary" android:backgroundTint="@color/primary_ultra_light"
-                            app:strokeColor="@color/primary" app:strokeWidth="1dp" app:cornerRadius="10dp"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:text="📋 Copy"
+                            android:textSize="11sp"
+                            android:textColor="@color/primary"
+                            android:backgroundTint="@color/primary_ultra_light"
+                            app:strokeColor="@color/primary"
+                            app:strokeWidth="1dp"
+                            app:cornerRadius="10dp"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
                     </LinearLayout>
-                    <TextView android:id="@+id/tvHashtags" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:textSize="13sp" android:lineSpacingExtra="4dp"
-                        android:textColor="@color/primary_dark" android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvHashtags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_dark"/>
+
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Share All Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnShareAll"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="📤  Share All Content"
+                android:text="📤 Share All Content"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/btn_red_gradient"
                 app:cornerRadius="14dp"
-                android:backgroundTint="@null" />
+                android:backgroundTint="@null"/>
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.gms.ads.AdView
@@ -218,7 +318,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="16dp"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

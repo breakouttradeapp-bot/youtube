@@ -24,7 +24,7 @@ class AiRepository {
                 messages = listOf(
                     ChatMessage(
                         role = "system",
-                        content = "You are a YouTube SEO expert. Respond ONLY with valid compact JSON. No markdown, no explanation."
+                        content = "You are a professional YouTube SEO expert who helps creators rank videos and increase CTR."
                     ),
                     ChatMessage(role = "user", content = buildSeoPrompt(topic))
                 )
@@ -100,17 +100,26 @@ class AiRepository {
     // ── Prompts ───────────────────────────────────────────────────────────────
 
     private fun buildSeoPrompt(topic: String) = """
-        Generate YouTube SEO content for this video topic.
+        Generate YouTube SEO optimized content for this video topic.
+
         Topic: $topic
 
-        Return ONLY this JSON (no markdown, no extra text):
-        {"title":"...","description":"...","tags":"tag1, tag2, tag3","hashtags":"#h1, #h2, #h3"}
+        Return ONLY JSON (no markdown, no explanations):
+
+        {
+        "title":"...",
+        "description":"...",
+        "tags":"...",
+        "hashtags":"..."
+        }
 
         Rules:
-        - title: max 70 chars, compelling, keyword-rich
-        - description: 300-500 words, natural keywords, include call to action
-        - tags: exactly 20 tags, comma separated, NO # symbol
-        - hashtags: exactly 15 hashtags, WITH # symbol, comma separated
+        - Title must be highly clickable and SEO optimized (max 70 characters)
+        - Description must be YouTube style with keywords and call-to-action
+        - Description should include engaging intro + keywords + CTA
+        - Tags must be exactly 20 SEO keywords separated by commas
+        - Hashtags must be exactly 15 hashtags separated by commas
+        - Focus on YouTube search ranking and CTR
     """.trimIndent()
 
     private fun buildShortsPrompt(topic: String) = """
