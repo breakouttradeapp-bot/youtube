@@ -86,6 +86,7 @@ layout item_history
 layout item_shorts_title
 menu main_menu
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 raw loading_anim
 raw youtube_anim

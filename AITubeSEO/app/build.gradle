@@ -4,6 +4,15 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+import java.util.Properties
+import java.io.FileInputStream
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace 'com.aitube.seogenerator'
     compileSdk 35
@@ -19,6 +28,15 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -26,6 +44,7 @@ android {
         }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
