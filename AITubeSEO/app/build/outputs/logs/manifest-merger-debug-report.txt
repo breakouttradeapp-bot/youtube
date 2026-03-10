@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-54:12
-INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-54:12
-INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-54:12
-INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-54:12
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:1-58:12
 MERGED from [androidx.databinding:viewbinding:8.2.0] /root/.gradle/caches/transforms-4/80d28b27b302ec9eddffaf5f13f6aaf4/transformed/jetified-viewbinding-8.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /root/.gradle/caches/transforms-4/62a4f8c89351bed81a5fcfbb084684dc/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /root/.gradle/caches/transforms-4/ad17b2ec29f3110e4ef3ac9ae7a4e9bf/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -80,6 +80,7 @@ MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /root/.gradle/caches/transf
 MERGED from [androidx.sqlite:sqlite:2.1.0] /root/.gradle/caches/transforms-4/cf1859cf4db412b6075b5b05ee010399/transformed/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] /root/.gradle/caches/transforms-4/2ce11d0c12792e57783a294325a4544c/transformed/jetified-annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
 	package
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:3:5-38
 		INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml
@@ -88,15 +89,15 @@ MERGED from [androidx.annotation:annotation-experimental:1.3.0] /root/.gradle/ca
 	xmlns:android
 		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:4:5-67
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:5:5-67
 MERGED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:24:5-67
 MERGED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:24:5-67
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:23:5-67
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:23:5-67
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:4:22-64
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:5:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:5:5-79
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:6:5-79
 MERGED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:25:5-79
 MERGED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:25:5-79
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:24:5-79
@@ -104,10 +105,20 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /r
 MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-4/ac3ebee3414e38c0cc1e21c4c4914168/transformed/work-runtime-2.7.0/AndroidManifest.xml:26:5-79
 MERGED from [androidx.work:work-runtime:2.7.0] /root/.gradle/caches/transforms-4/ac3ebee3414e38c0cc1e21c4c4914168/transformed/work-runtime-2.7.0/AndroidManifest.xml:26:5-79
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:5:22-76
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:6:22-76
+uses-permission#com.google.android.gms.permission.AD_ID
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:9:5-78
+MERGED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /root/.gradle/caches/transforms-4/cb2a81bf9d3b3cce358aa3b3e8136604/transformed/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /root/.gradle/caches/transforms-4/cb2a81bf9d3b3cce358aa3b3e8136604/transformed/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:26:5-79
+	android:name
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:9:22-76
 application
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:7:5-52:19
-INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:7:5-52:19
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:11:5-56:19
+INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:11:5-56:19
 MERGED from [com.google.android.material:material:1.11.0] /root/.gradle/caches/transforms-4/62a4f8c89351bed81a5fcfbb084684dc/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /root/.gradle/caches/transforms-4/62a4f8c89351bed81a5fcfbb084684dc/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /root/.gradle/caches/transforms-4/ad17b2ec29f3110e4ef3ac9ae7a4e9bf/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -155,75 +166,75 @@ MERGED from [androidx.room:room-runtime:2.2.5] /root/.gradle/caches/transforms-4
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] /root/.gradle/caches/transforms-4/c43ab52524a4acfbb564e31eb6d2b32c/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:12:9-35
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:16:9-35
 	android:label
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:10:9-41
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:14:9-41
 	android:roundIcon
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:11:9-54
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:15:9-54
 	android:icon
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:9:9-43
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:13:9-43
 	android:allowBackup
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:8:9-35
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:12:9-35
 	android:theme
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:13:9-47
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:17:9-47
 	android:networkSecurityConfig
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:14:9-69
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:18:9-69
 meta-data#com.google.android.gms.ads.APPLICATION_ID
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:17:9-19:70
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:21:9-23:70
 	android:value
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:19:13-67
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:23:13-67
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:18:13-69
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:22:13-69
 activity#com.aitube.seogenerator.activities.SplashActivity
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:21:9-29:20
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:25:9-33:20
 	android:exported
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:23:13-36
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:27:13-36
 	android:theme
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:24:13-63
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:28:13-63
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:22:13-54
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:26:13-54
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:25:13-28:29
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:29:13-32:29
 action#android.intent.action.MAIN
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:26:17-69
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:30:17-69
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:26:25-66
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:30:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:27:17-77
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:31:17-77
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:27:27-74
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:31:27-74
 activity#com.aitube.seogenerator.activities.MainActivity
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:31:9-34:58
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:35:9-38:58
 	android:windowSoftInputMode
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:34:13-55
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:38:13-55
 	android:exported
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:33:13-37
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:37:13-37
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:32:13-52
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:36:13-52
 activity#com.aitube.seogenerator.activities.SeoResultActivity
-ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:36:9-38:40
-	android:exported
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:38:13-37
-	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:37:13-57
-activity#com.aitube.seogenerator.activities.ShortsResultActivity
 ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:40:9-42:40
 	android:exported
 		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:42:13-37
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:41:13-60
-activity#com.aitube.seogenerator.activities.HistoryActivity
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:41:13-57
+activity#com.aitube.seogenerator.activities.ShortsResultActivity
 ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:44:9-46:40
 	android:exported
 		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:46:13-37
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:45:13-55
-activity#com.aitube.seogenerator.activities.PrivacyPolicyActivity
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:45:13-60
+activity#com.aitube.seogenerator.activities.HistoryActivity
 ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:48:9-50:40
 	android:exported
 		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:50:13-37
 	android:name
-		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:49:13-61
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:49:13-55
+activity#com.aitube.seogenerator.activities.PrivacyPolicyActivity
+ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:52:9-54:40
+	android:exported
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:54:13-37
+	android:name
+		ADDED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:53:13-61
 uses-sdk
 INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml
@@ -384,14 +395,6 @@ MERGED from [androidx.annotation:annotation-experimental:1.3.0] /root/.gradle/ca
 		INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml
-uses-permission#com.google.android.gms.permission.AD_ID
-ADDED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:26:5-79
-MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /root/.gradle/caches/transforms-4/cb2a81bf9d3b3cce358aa3b3e8136604/transformed/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
-MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /root/.gradle/caches/transforms-4/cb2a81bf9d3b3cce358aa3b3e8136604/transformed/jetified-play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
-MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:26:5-79
-MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.2] /root/.gradle/caches/transforms-4/09052ec1d3d76cd8f565532aa4dc568b/transformed/jetified-play-services-measurement-sdk-api-20.1.2/AndroidManifest.xml:26:5-79
-	android:name
-		ADDED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:26:22-76
 uses-permission#android.permission.ACCESS_ADSERVICES_AD_ID
 ADDED from [com.google.android.gms:play-services-ads-lite:22.6.0] /root/.gradle/caches/transforms-4/b12b7763c4e49e5edfde097e205e188a/transformed/jetified-play-services-ads-lite-22.6.0/AndroidManifest.xml:27:5-82
 	android:name

@@ -69,12 +69,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAds() {
         try {
-            MobileAds.initialize(this) {
-                loadInterstitialAd()
-                loadRewardedAd()
+
+            MobileAds.initialize(this)
+
+            loadInterstitialAd()
+            loadRewardedAd()
+
+            // SAFE banner load
+            try {
+                binding.bannerAdView?.loadAd(AdRequest.Builder().build())
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            binding.bannerAdView.loadAd(AdRequest.Builder().build())
-        } catch (e: Exception) {}
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun loadInterstitialAd() {
@@ -194,9 +204,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (!isFinishing && !isDestroyed) {
 
-                        // Unlock exactly 3 attempts
                         prefs.resetCount()
-
                         updateLimitUI()
 
                         Toast.makeText(
