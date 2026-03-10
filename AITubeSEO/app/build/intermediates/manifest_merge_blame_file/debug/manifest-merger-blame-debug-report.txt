@@ -99,7 +99,7 @@
 57-->/root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:17:9-19:70
 58            android:name="com.google.android.gms.ads.APPLICATION_ID"
 58-->/root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:18:13-69
-59            android:value="ca-app-pub-3940256099942544~3347511713" />
+59            android:value="ca-app-pub-1607968585289432~5317130884" />
 59-->/root/youtube/AITubeSEO/app/src/main/AndroidManifest.xml:19:13-67
 60
 61        <activity

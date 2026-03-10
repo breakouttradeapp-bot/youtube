@@ -12,9 +12,9 @@ object Constants {
     const val MAX_TOKENS = 1024
 
     // ── AdMob Test IDs ────────────────────────────────────────────────────────
-    const val ADMOB_BANNER_ID       = "ca-app-pub-3940256099942544/6300978111"
-    const val ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
-    const val ADMOB_REWARDED_ID     = "ca-app-pub-3940256099942544/5224354917"
+    const val ADMOB_BANNER_ID       = "ca-app-pub-1607968585289432/7860513689"
+    const val ADMOB_INTERSTITIAL_ID = "ca-app-pub-1607968585289432/3007137671"
+    const val ADMOB_REWARDED_ID     = "ca-app-pub-1607968585289432/6786600580"
 
     // ── Generation limits ─────────────────────────────────────────────────────
     const val FREE_GENERATION_LIMIT   = 3

@@ -74,6 +74,6 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="16dp"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        ads:adUnitId="ca-app-pub-1607968585289432/7860513689" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
