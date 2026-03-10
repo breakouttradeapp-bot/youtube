@@ -67,21 +67,17 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    // ---------- ADS ----------
     private fun initAds() {
         try {
+            MobileAds.initialize(this) {
+                loadInterstitialAd()
+                loadRewardedAd()
 
-            MobileAds.initialize(this)
-
-            loadInterstitialAd()
-            loadRewardedAd()
-
-            // SAFE banner load
-            try {
-                binding.bannerAdView?.loadAd(AdRequest.Builder().build())
-            } catch (e: Exception) {
-                e.printStackTrace()
+                if (!isFinishing && !isDestroyed) {
+                    binding.bannerAdView.loadAd(AdRequest.Builder().build())
+                }
             }
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -97,12 +93,15 @@ class MainActivity : AppCompatActivity() {
                     override fun onAdLoaded(ad: InterstitialAd) {
                         interstitialAd = ad
                     }
+
                     override fun onAdFailedToLoad(error: LoadAdError) {
                         interstitialAd = null
                     }
                 }
             )
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun loadRewardedAd() {
@@ -115,14 +114,18 @@ class MainActivity : AppCompatActivity() {
                     override fun onAdLoaded(ad: RewardedAd) {
                         rewardedAd = ad
                     }
+
                     override fun onAdFailedToLoad(error: LoadAdError) {
                         rewardedAd = null
                     }
                 }
             )
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
+    // ---------- UI ----------
     private fun setupClickListeners() {
 
         binding.btnGenerateSeo.setOnClickListener {
@@ -170,6 +173,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnWatchAd.setOnClickListener { showRewardedAd() }
     }
 
+    // ---------- LIMIT ----------
     private fun checkLimit(): Boolean {
         if (prefs.getGenerationCount() >= Constants.FREE_GENERATION_LIMIT) {
             showLimitDialog()
@@ -192,50 +196,49 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {}
     }
 
+    // ---------- REWARDED AD ----------
     private fun showRewardedAd() {
 
         try {
-
             val ad = rewardedAd
 
             if (ad != null && !isFinishing && !isDestroyed) {
 
                 ad.show(this) {
 
-                    if (!isFinishing && !isDestroyed) {
+                    prefs.resetCount()
+                    updateLimitUI()
 
-                        prefs.resetCount()
-                        updateLimitUI()
-
-                        Toast.makeText(
-                            this,
-                            "🎉 ${Constants.FREE_GENERATION_LIMIT} generations unlocked!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                    Toast.makeText(
+                        this,
+                        "🎉 ${Constants.FREE_GENERATION_LIMIT} generations unlocked!",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
                 rewardedAd = null
                 loadRewardedAd()
 
             } else {
-
                 Toast.makeText(this, "Ad not ready yet. Please try again.", Toast.LENGTH_SHORT).show()
                 loadRewardedAd()
             }
 
         } catch (e: Exception) {
-
             Toast.makeText(this, "Ad not available right now.", Toast.LENGTH_SHORT).show()
         }
     }
 
+    // ---------- INTERSTITIAL ----------
     private fun maybeShowInterstitial() {
         try {
             val count = prefs.getGenerationCount()
             val ad = interstitialAd
-            if (ad != null && count > 0 && count % Constants.INTERSTITIAL_EVERY_N == 0
-                && !isFinishing && !isDestroyed && isActivityVisible) {
+
+            if (ad != null && count > 0 &&
+                count % Constants.INTERSTITIAL_EVERY_N == 0 &&
+                !isFinishing && !isDestroyed && isActivityVisible
+            ) {
                 ad.show(this)
                 interstitialAd = null
                 loadInterstitialAd()
@@ -243,25 +246,20 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {}
     }
 
+    // ---------- UI STATE ----------
     private fun updateLimitUI() {
-
         if (isFinishing || isDestroyed) return
 
-        try {
+        val count = prefs.getGenerationCount()
+        val remaining = maxOf(0, Constants.FREE_GENERATION_LIMIT - count)
 
-            val count = prefs.getGenerationCount()
-            val remaining = maxOf(0, Constants.FREE_GENERATION_LIMIT - count)
-
-            binding.tvLimitInfo.text =
-                "⚡ $remaining generation${if (remaining != 1) "s" else ""} remaining"
-
-        } catch (e: Exception) {}
+        binding.tvLimitInfo.text =
+            "⚡ $remaining generation${if (remaining != 1) "s" else ""} remaining"
     }
 
     private fun observeViewModel() {
 
         viewModel.seoState.observe(this) { state ->
-
             when (state) {
 
                 is UiState.Loading -> setLoadingState(true)
@@ -273,9 +271,7 @@ class MainActivity : AppCompatActivity() {
                     val topic = binding.etTopic.text?.toString()?.trim() ?: ""
 
                     prefs.incrementCount()
-
                     maybeShowInterstitial()
-
                     updateLimitUI()
 
                     try {
@@ -286,17 +282,13 @@ class MainActivity : AppCompatActivity() {
                                 resultJson = gson.toJson(state.data)
                             )
                         )
-                    } catch (e: Exception) {}
+                    } catch (_: Exception) {}
 
-                    if (!isFinishing && !isDestroyed) {
+                    val intent = Intent(this, SeoResultActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_SEO_CONTENT, state.data)
+                    intent.putExtra(Constants.EXTRA_TOPIC, topic)
 
-                        val intent = Intent(this, SeoResultActivity::class.java).apply {
-                            putExtra(Constants.EXTRA_SEO_CONTENT, state.data)
-                            putExtra(Constants.EXTRA_TOPIC, topic)
-                        }
-
-                        startActivity(intent)
-                    }
+                    startActivity(intent)
 
                     viewModel.resetSeo()
                 }
@@ -306,7 +298,7 @@ class MainActivity : AppCompatActivity() {
                     showError(state.message)
                 }
 
-                is UiState.Idle -> setLoadingState(false)
+                else -> setLoadingState(false)
             }
         }
 
@@ -323,9 +315,7 @@ class MainActivity : AppCompatActivity() {
                     val topic = binding.etTopic.text?.toString()?.trim() ?: ""
 
                     prefs.incrementCount()
-
                     maybeShowInterstitial()
-
                     updateLimitUI()
 
                     try {
@@ -336,17 +326,13 @@ class MainActivity : AppCompatActivity() {
                                 resultJson = gson.toJson(state.data)
                             )
                         )
-                    } catch (e: Exception) {}
+                    } catch (_: Exception) {}
 
-                    if (!isFinishing && !isDestroyed) {
+                    val intent = Intent(this, ShortsResultActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_SHORTS_TITLES, state.data)
+                    intent.putExtra(Constants.EXTRA_TOPIC, topic)
 
-                        val intent = Intent(this, ShortsResultActivity::class.java).apply {
-                            putExtra(Constants.EXTRA_SHORTS_TITLES, state.data)
-                            putExtra(Constants.EXTRA_TOPIC, topic)
-                        }
-
-                        startActivity(intent)
-                    }
+                    startActivity(intent)
 
                     viewModel.resetShorts()
                 }
@@ -356,21 +342,20 @@ class MainActivity : AppCompatActivity() {
                     showError(state.message)
                 }
 
-                is UiState.Idle -> setLoadingState(false)
+                else -> setLoadingState(false)
             }
         }
     }
 
     private fun setLoadingState(loading: Boolean) {
-        if (isFinishing || isDestroyed) return
         binding.loadingLayout.visibility =
             if (loading) android.view.View.VISIBLE else android.view.View.GONE
+
         binding.btnGenerateSeo.isEnabled = !loading
         binding.btnGenerateShorts.isEnabled = !loading
     }
 
     private fun showError(msg: String) {
-        if (isFinishing || isDestroyed) return
         try {
             MaterialAlertDialogBuilder(this)
                 .setTitle("❌ Error")
@@ -382,33 +367,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // ---------- MENU ----------
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        try {
-            menu.findItem(R.id.action_dark_mode)?.title =
-                if (prefs.isDarkMode()) "☀️ Light Mode" else "🌙 Dark Mode"
-        } catch (e: Exception) {}
+
+        menu.findItem(R.id.action_dark_mode)?.title =
+            if (prefs.isDarkMode()) "☀️ Light Mode" else "🌙 Dark Mode"
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
             R.id.action_history -> {
                 startActivity(Intent(this, HistoryActivity::class.java))
                 true
             }
+
             R.id.action_dark_mode -> {
                 val newMode = !prefs.isDarkMode()
                 prefs.setDarkMode(newMode)
+
                 AppCompatDelegate.setDefaultNightMode(
-                    if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                    if (newMode) AppCompatDelegate.MODE_NIGHT_YES
+                    else AppCompatDelegate.MODE_NIGHT_NO
                 )
                 true
             }
+
             R.id.action_privacy -> {
                 startActivity(Intent(this, PrivacyPolicyActivity::class.java))
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
